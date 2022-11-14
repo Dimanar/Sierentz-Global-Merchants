@@ -74,14 +74,13 @@ data = data.withColumn('year', fix_year(F.col("Yr")))\
 
 data = data.toPandas()
 data['date'] = pd.to_datetime(data['date'])
-data.set_index('date')
-data.info()
+data = data.set_index('date')
 
 
 # TODO Compute how many values are missing for each location over the entire record
 
 
-print("\nmissed_value: ")
+print("\nMISSED_VALUE: ")
 missed_value = data[columns[4:]].isna().sum()
 print(missed_value)
 
@@ -89,7 +88,7 @@ print(missed_value)
 # TODO Compute how many non-missing values there are in total
 
 
-print("\nnon_missed_value:")
+print("\nNON_MISSED_VALUE:")
 non_missed_value = data[columns[4:]].count()
 print(non_missed_value)
 
@@ -97,7 +96,7 @@ print(non_missed_value)
 # TODO Calculate the mean windspeeds of the windspeeds over all the locations and all the times
 
 
-print("\nmean windspeeds:")
+print("\nMEAN WINDSPEEDS:")
 mean_windspeeds = data.describe().loc['mean'].mean()
 print(mean_windspeeds)
 
@@ -111,16 +110,32 @@ loc_stats = data.describe().loc[['min', 'max', 'mean', 'std']]
 # TODO Find the average windspeed in January for each location
 
 
-
+print('\nAVG_WINDSPEED: ')
+avg_windspeed = data.loc['1961-01-01':'1978-02-01'][columns[4:]].mean(axis=0)
+print(avg_windspeed)
 
 
 # TODO Downsample the record to a yearly frequency for each location
 
 
+print("\nDOWNSAMPLED_YEAR_DATA: ")
+downsampled_year_data = data[columns[4:]].resample('1Y').agg(['min', 'max', 'sum', 'mean'])
+print(downsampled_year_data)
+
+
 # TODO Downsample the record to a monthly frequency for each location
 
 
+print("\nDOWNSAMPLED_MONTH_DATA: ")
+downsampled_month_data = data[columns[4:]].resample('1M').agg(['min', 'max', 'sum', 'mean'])
+print(downsampled_month_data)
+
+
 # TODO Downsample the record to a weekly frequency for each location
+
+print("\nDOWNSAMPLED_WEEK_DATA: ")
+downsampled_week_data = data[columns[4:]].resample('1W').agg(['min', 'max', 'sum', 'mean'])
+print(downsampled_week_data)
 
 
 # TODO Calculate the min, max and mean windspeeds and standard deviations of the windspeeds across all locations for each week (assume that the first week starts on January 2 1961) for the first 21 weeks
