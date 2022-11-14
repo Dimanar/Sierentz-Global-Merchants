@@ -17,7 +17,7 @@ import pandas as pd
 from datetime import datetime
 from pyspark.sql import SparkSession
 import pyspark.sql.functions as F
-from pyspark.sql.types import StringType, DecimalType, FloatType, TimestampType, DateType
+from pyspark.sql.types import StringType, FloatType, DateType
 
 
 # TODO Import the dataset
@@ -28,6 +28,7 @@ path = r'./data/weather_dataset.data'
 
 with open(path) as f:
     lines = [re.sub(r'\s+', '|', line.strip()).split('|') for line in f]
+
 
 # TODO  Assign it to a variable called data and replace the first 3 columns by a proper datetime index
 
@@ -42,6 +43,7 @@ columns = lines[1]
 data = spark.createDataFrame(lines[2:], columns)
 data = data.withColumn('date', convert_to_date(F.col("Yr"), F.col('Mo'), F.col('Dy')))
 columns.insert(0, 'date')
+
 
 # TODO Check if everything is okay with the data. Create functions to delete/fix rows with strange cases and apply them
 
