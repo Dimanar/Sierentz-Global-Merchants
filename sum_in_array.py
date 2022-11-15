@@ -14,6 +14,9 @@ from typing import List
 class Solution:
     def SumInArray(self, nums: List[int], target: int) -> List[int]:
         """ variation for not sorted array """
+        if len(nums) <= 1:
+            return [-1]
+
         diff_dict = dict()
         for num in nums:
 
@@ -29,6 +32,9 @@ class Solution:
 
     def SumInArray2(self, nums: List[int], target: int) -> List[int]:
         """ variation for sorted array """
+        if len(nums) <= 1:
+            return [-1]
+
         first, last = 0, len(nums) - 1
         while first != last and nums[first] + nums[last] != target:
             if nums[first] + nums[last] < target:
