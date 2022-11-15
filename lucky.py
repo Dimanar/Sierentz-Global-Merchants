@@ -9,23 +9,47 @@ for Sierentz Global Merchants
 Test task
 """
 
-from typing import List
+import re
 
 
 class Solution:
     def luckySeq(self, sequence: str) -> str:
-        pass
+
+        if len(sequence) <= 1:
+            return '0'
+
+        splitted_str = re.split(r'[^56]', sequence)
+        filtered_rows = list(sorted(filter(lambda x: len(x) > 0, splitted_str), key=len, reverse=True))
+
+        if filtered_rows:
+            return filtered_rows[0]
+        else:
+            return str(0)
+
+    # def luckySeq2(self, sequence: str) -> str:
+    #
+    #     if len(sequence) <= 1:
+    #         return '0'
+    #
+    #     splitted_str = re.split(r'[^56]', sequence)
+    #     filtered_rows = list(sorted(filter(lambda x: len(x) > 0, splitted_str), key=len, reverse=True))
+    #
+    #     if filtered_rows:
+    #         return filtered_rows[0]
+    #     else:
+    #         return str(0)
 
 
 sol = Solution()
-result1 = sol.luckySeq("4556432455665334")
-print(result1, '\n')
+possible_sq = ["4556432455665334", "5656556565", "565656565656565656565656565656565656565665",
+               "234234234565652341234156666666", "235555555564355555556", "3434343438493493493434"]
 
-result2 = sol.luckySeq("5656556565")
-print(result2, '\n')
+print("***** V1 *****")
+for sq in possible_sq:
+    result = sol.luckySeq(sq)
+    print(f' Sequence 1 -> {sq}\n\tlucky 1 -> {result}\n')
 
-result3 = sol.luckySeq("565656565656565656565656565656565656565665")
-print(result3, '\n')
-
-result3 = sol.luckySeq("234234234565652341234156666666")
-print(result3, '\n')
+# print("***** V2 *****")
+# for sq in possible_sq:
+#     result = sol.luckySeq2(sq)
+#     print(f' Sequence 1 -> {sq}\n\tlucky 1 -> {result}\n')
