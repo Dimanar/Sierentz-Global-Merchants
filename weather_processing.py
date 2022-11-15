@@ -141,3 +141,5 @@ print(downsampled_week_data)
 
 
 # TODO Calculate the min, max and mean windspeeds and standard deviations of the windspeeds across all locations for each week (assume that the first week starts on January 2 1961) for the first 21 weeks
+
+
