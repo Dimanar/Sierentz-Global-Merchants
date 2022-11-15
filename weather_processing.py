@@ -9,12 +9,14 @@ Test task
 
 
 # TODO Import the necessary libraries
+
+
 import findspark
 findspark.init()
 
 import re
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 from pyspark.sql import SparkSession
 import pyspark.sql.functions as F
 from pyspark.sql.types import StringType, FloatType, DateType
@@ -135,6 +137,7 @@ print(downsampled_month_data)
 
 # TODO Downsample the record to a weekly frequency for each location
 
+
 print("\nDOWNSAMPLED_WEEK_DATA: ")
 downsampled_week_data = data[columns[4:]].resample('1W').agg(['min', 'max', 'sum', 'mean'])
 print(downsampled_week_data)
@@ -143,3 +146,9 @@ print(downsampled_week_data)
 # TODO Calculate the min, max and mean windspeeds and standard deviations of the windspeeds across all locations for each week (assume that the first week starts on January 2 1961) for the first 21 weeks
 
 
+print("\nTHE LAST ONE:")
+YMD_FORMAT = "%Y-%m-%d"
+first_week = datetime.strptime("1961-01-02", YMD_FORMAT)
+last_week = (first_week + timedelta(weeks=20)).strftime(YMD_FORMAT)
+by_week_aggr_data = data.loc[first_week:last_week][columns[4:]].resample('1W').agg(['min', 'max', 'mean', 'std'])
+print(by_week_aggr_data)
