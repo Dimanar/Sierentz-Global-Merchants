@@ -1,0 +1,18 @@
+Consider influenza epidemics for 2-person families. The probability is 21% that at least one
+has disease. The probability that the husband has contracted influenza is 15% while the
+probability that both the wife and husband have contracted the disease is 10%. What is the
+probability that the wife has influenza?
+
+H - husband has a disease
+V - wife has a disease
+P(V  H) - 0.21 - at leas one has a disease
+P(HV) - 0.1 - two has disease
+P(H) - 0.15 - only husband has a disease
+
+P(V  H) = P(H) + P(V) - P(HV)
+
+P(V) = P(V  H) - P(H) + P(HV)
+
+P(V) = 0.21 - 0.15 + 0.1 = 0.16 or 16%
+
+0.16 - probability that the wife has a disease
